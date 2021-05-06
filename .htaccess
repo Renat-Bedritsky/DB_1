@@ -2,6 +2,7 @@ RewriteEngine On
 RewriteBase /
 
 RewriteCond %{REQUEST_FILENAME} !/index.php
+RewriteCond %{REQUEST_FILENAME} !/test.php
 RewriteCond %{REQUEST_FILENAME} !/record.php
 RewriteCond %{REQUEST_FILENAME} !/style.css
 RewriteCond %{REQUEST_FILENAME} !/media.css

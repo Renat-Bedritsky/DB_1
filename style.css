@@ -86,9 +86,17 @@ body {
 }
 
 .select {
-    padding-top: 10px;
-    position: absolute;
-    margin-left: calc(70% - 200px);
+    width: 210px;
+    padding-top: 20px;
+    margin-left: calc(100% - 260px);
+}
+
+.select form {
+    display: flex;
+}
+
+.select form button {
+    margin-left: 10px;
 }
 
 .products_list {
@@ -102,7 +110,7 @@ body {
     height: 320px;
     text-align: center;
     margin: 20px auto;
-    padding: 70px 30px;
+    padding: 10px 30px;
     overflow: hidden;
 }
 

@@ -16,9 +16,9 @@ require_once './connect.php';   // Подключение к базе данны
 if (isset($_POST['title'])) {
 
     $shop = new Shop();
-    $idSql = $shop->getProducts('SELECT COUNT(*) FROM products');
+    $idSql = $shop->getProducts(0);   // Получение количества строк в таблице
 
-    $id = $idSql[0]['COUNT(*)'] + 1;
+    $id = $idSql[0]['COUNT(*)'] + 1;   // Количество строк в таблице + 1
     $title = $_POST['title'];
     $price = $_POST['price'];
     $descript = $_POST['descript'];
@@ -28,31 +28,32 @@ if (isset($_POST['title'])) {
     $sql = "INSERT INTO products (id, title, price, descript, category, images) VALUES ($id, '$title', $price, '$descript', '$category', '$images')";
     $data = $shop->setProducts($sql);
 
-    if ($data == 1) echo 'Добавлено успешно';
-    else if ($data == 0) echo 'Не добавлено';
-    else echo 'Ничего';
-
     header("location: /index.php");
+
 }
 
 ?>
 
 
 
-<form method="POST" name="add_product">
-    Название товара:        <br><input type="text" name="title" value="" required><br>
-    Цена товара:            <br><input type="text" name="price" value="" required><br>
-    Описание товара:        <br><input type="text" name="descript" value="" required><br>
-    Категория товара:       <br>
-                                <select name="category">
-                                    <option value="men's clothing">men's clothing</option>
-                                    <option value="women's clothing">women's clothing</option>
-                                    <option value="jewelery">jewelery</option>
-                                    <option value="electronics">electronics</option>
-                                </select><br>
-    Ссылка на фотографию:   <br><input type="text" name="images" value="" required><br>
-    <button>Добавить</button>
-</form>
+
+
+<div class="add_product">
+    <form method="POST" name="add_product">
+        Название товара:        <br><input type="text" name="title" value="" required><br>
+        Цена товара:            <br><input type="text" name="price" value="" required><br>
+        Описание товара:        <br><input type="text" name="descript" value="" required><br>
+        Категория товара:       <br>
+                                    <select name="category">
+                                        <option value="men clothing">men clothing</option>
+                                        <option value="women clothing">women clothing</option>
+                                        <option value="jewelery">jewelery</option>
+                                        <option value="electronics">electronics</option>
+                                    </select><br>
+        Ссылка на фотографию:   <br><input type="text" name="images" value="" required><br>
+        <button>Добавить</button>
+    </form>
+</div>
 
 
 

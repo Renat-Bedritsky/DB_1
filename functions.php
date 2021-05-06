@@ -55,29 +55,47 @@ if (isset($_POST['delBasket'])) {
     }
 }
 
+?>
 
 
 
+
+
+<div class='select'>
+    <form method="POST">
+        <select name="category">
+            <option value="all">all</option>
+            <option value="men clothing">men clothing</option>
+            <option value="women clothing">women clothing</option>
+            <option value="jewelery">jewelery</option>
+            <option value="electronics">electronics</option>
+        </select>
+        <button>OK</button>
+    </form>
+</div>
+
+
+
+
+
+<?php
 
 // Функция для вывода списка товаров
 
 function showProducts() {
     
-    $sql = 'SELECT * FROM products';     // Текст запроса
+    if (isset($_POST['category']) && $_POST['category'] != 'all') {
+        $category = $_POST['category'];
+    }
+    else if (!isset($_POST['category']) || $_POST['category'] == 'all') {
+        $category = 1;                          // Текст запроса
+    }
+    
     $shop = new Shop();                  // Создание нового объекта
-    $data = $shop->getProducts($sql);    // Отправка запроса
+    $data = $shop->getProducts($category);    // Отправка запроса
     $data = (array)$data;                // Преобразование объекта в массив
 
-    $html = "
-    <div class='select'>
-        <select>
-            <option>all categories</option>
-            <option>men's clothing</option>
-            <option>women's clothing</option>
-            <option>jewelery</option>
-            <option>electronics</option>
-        </select>
-    </div>";
+    $html = "";
 
     foreach($data as $product) {
         $html .= '
@@ -149,9 +167,8 @@ if (isset($_GET['basket'])) { ?>
 
     <?php
 
-    $sql = 'SELECT * FROM products';    // Текст запроса
     $shop = new Shop();                 // Создание нового объекта
-    $data = $shop->getProducts($sql);   // Отправка запроса
+    $data = $shop->getProducts(1);      // Отправка запроса
     $data = (array)$data;               // Преобразование объекта в массив
     $cost = 0;                          // Общая стоимость товара
 

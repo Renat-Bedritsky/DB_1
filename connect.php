@@ -18,7 +18,17 @@ class Shop {
 
 
     // Функция для получения данных
-    function getProducts($sql) {
+    function getProducts($category) {
+        if ($category != 1 && $category != 0) {
+            $sql = "SELECT * FROM products WHERE category = '$category'";       // Текст запроса с выбраноной категорией товаров
+        }
+        else if ($category == 1) {
+            $sql = 'SELECT * FROM products';                                    // Текст запроса без категории товаров (все товары)
+        }
+        else if ($category == 0) {
+            $sql = 'SELECT COUNT(*) FROM products';                             // Текст запроса для получения количества строк
+        }
+        
         $string = $this->general($sql);
         $result = [];                                                                             // Пустой массив для товаров
 
@@ -33,9 +43,7 @@ class Shop {
 
     // Функция для записи данных
     function setProducts($sql) {
-        $string = $this->general($sql);
-        if($string) return 1;
-        else return 0;
+        $this->general($sql);
     }
 }
 
